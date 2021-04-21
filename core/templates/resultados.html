@@ -1,0 +1,61 @@
+{% load bootstrap4 %} <!-- Importando o Boostrap -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+
+    <title>Document</title>
+</head>
+<body>
+    <center>
+        <hr/>
+        <form method="POST">
+        <h1>Atendimentos realizados por data</h1>
+            {% csrf_token %}
+        Data: <input type="date" name="fromdate" style="color: black;"/>
+        <!--To :<input type="date" name="todate"/>--->
+        <input type="submit" value="Procurar" class="procurar"/>
+        <hr/>    
+        <table class="table table-dark table-striped" >
+            <thread>
+                <tr>
+                    <td scope="col">Nome</td>
+                    <td scope="col">Telefone</td>
+                    <td scope="col">Endereço de E-mail</td>
+                    <td scope="col">Profissional</td>
+                    <td scope="col">Data</td>
+                </tr>
+            </thread>
+            <tbody>
+                {% for result in data %}
+                <tr>
+                    <td scope="row">{{result.nome}}</td>
+                    <td scope="row">{{result.telefone}}</td>
+                    <td scope="row">{{result.email}}</td>
+                    <td scope="row">{{result.profissional}}</td>
+                    <td scope="row">{{result.joindate}}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+        </form>
+    </center>
+    <footer>
+    <center>
+        {% buttons %}
+        <button type="button" class="btn btn-dark zoom"><a href="{% url 'index' %}">Todos clientes registrados</a></button>
+        <button type="button" class="btn btn-dark zoom"><a href="{% url 'produto' %}">Cadastrar Cliente</a></button>
+        <button type="button" class="btn btn-dark zoom" id="2"><a href="{% url 'novo' %}">Cadastrar funcionario</a></button>
+        <button type="button" class="btn btn-dark zoom" id="2"><a href="{% url 'resultadosfunc' %}">Qual funcionario atendeu o cliente</a></button>
+        <button type="button" class="btn btn-dark zoom" id="2"><a href="{% url 'novo' %}">Cadastrar funcionario</a></button>
+        {% endbuttons %}
+    </center>
+    </footer>
+</body>
+</html>

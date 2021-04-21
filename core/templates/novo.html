@@ -1,0 +1,41 @@
+{% load bootstrap4 %} <!-- Importando o Boostrap -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django - Produto</title>
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+    <div class="container">
+
+        <h1>Cadastrar Funcionario</h1>
+        <!--<img src="{% static 'images/images.png' %}"/>-->
+        {% bootstrap_messages %}
+        <form action="{% url 'novo' %}" method="POST" class="form" autocomplete="off" enctype="multipart/form-data">
+        <!-- CASO FOR FAZER UPLOAD DE ARQUIVOS E NCESSARIOS O MULTIPART -->
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+            <center>
+                <button type="submit" class="btn btn-dark zoom">Cadastrar</button>
+                <button type="button" class="btn btn-dark zoom"><a href="{% url 'resultados' %}">Clientes atendidos por data</a></button>
+                <button type="button" class="btn btn-dark zoom"><a href="{% url 'index' %}">Todos clientes registrados</a></button>
+                <button type="button" class="btn btn-dark zoom" id="1"><a href="{% url 'produto' %}">Cadastrar Cliente</a></button>
+                <button type="button" class="btn btn-dark zoom" id="2"><a href="{% url 'resultadosfunc' %}">Qual funcionario atendeu o cliente</a></button>
+
+                
+            </center>
+            {% endbuttons %}
+        </form>
+    </div>
+
+
+{% bootstrap_javascript jquery='full' %} <!-- Importando o Js/Jquery -->
+</body>
+</html>

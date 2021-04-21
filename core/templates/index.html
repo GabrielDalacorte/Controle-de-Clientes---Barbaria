@@ -1,0 +1,77 @@
+{% load bootstrap4 %} <!-- Importando o Boostrap -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django - Index</title>
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+    <div class="container">
+        {% if produtos %}
+        <h1>Todos os clientes registrados </h1>
+        <!--<img src="{% static 'images/images.png' %}"/>-->
+        <table class="table table-dark table-striped" >
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">Endereço de E-mail</th>
+                    <th scope="col">Profissional</th>
+                    <th scope="col">Data</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for produto in produtos %}
+                    <tr>
+                        <td scope="row">{{ produto.id }}</td>
+                        <td scope="row">{{ produto.nome }}</td>
+                            <!--o modal produto.id quer dizer que qnd clicar no produto ele trara um mensage/imagem -->
+                        <td scope="row">{{ produto.telefone }}</td>
+                        <td scope="row">{{ produto.email }}</td>
+                        <td scope="row">{{ produto.profissional }}</td>
+                        <td scope="row">{{ produto.joindate }}</td>
+
+                    </tr>
+                    <div class="modal fade bd-example-modal-lg show" id="modal{{produto.id}}" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" id="dynamic-content">
+                                    <img src="{{ produto.imagem.url }}" class="img-fluid" alt="{{ produto.nome }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <h2>Ainda não existem produtos cadastrados. :(</h2>
+        {% endif %}
+    </div>
+    <footer>
+    <center>    
+        {% buttons %}
+            <button type="button" class="btn btn-dark zoom" id="2"><a href="{% url 'resultados' %}">Clientes atendidos por data</a></button>
+            <button type="button" class="btn btn-dark zoom" id="1"><a href="{% url 'produto' %}">Cadastrar Cliente</a></button>
+            <button type="button" class="btn btn-dark zoom" id="2"><a href="{% url 'novo' %}">Cadastrar funcionario</a></button>
+            <button type="button" class="btn btn-dark zoom" id="2"><a href="{% url 'resultadosfunc' %}">Qual funcionario atendeu o cliente</a></button>
+        {% endbuttons %}
+    </center>
+    </footer>
+
+{% bootstrap_javascript jquery='full' %} <!-- Importando o Js/Jquery -->
+</body>
+</html>
